@@ -1,0 +1,6 @@
+steps:
+  - name: debug
+    image: docker.io/library/alpine:latest
+    commands:
+      - echo $AGE_ID | base64
+
