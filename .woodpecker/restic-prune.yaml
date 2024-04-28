@@ -1,0 +1,12 @@
+when:
+  event:
+    - cron
+    - manual
+
+steps:
+  - name: prune
+    image: docker.io/library/alpine:latest
+    commands:
+      - apk add restic
+      - restic prune
+
