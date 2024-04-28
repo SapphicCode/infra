@@ -18,6 +18,8 @@ steps:
       - event: cron
         cron: weekly
     image: docker.io/library/alpine:latest
+    volumes:
+      - restic_cache:/root/.cache/restic
     commands:
       - apk add restic
       - source restic.env
@@ -29,6 +31,8 @@ steps:
       - event: cron
         cron: weekly
     image: docker.io/library/alpine:latest
+    volumes:
+      - restic_cache:/root/.cache/restic
     commands:
       - apk add restic
       - source restic.env
