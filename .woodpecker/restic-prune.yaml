@@ -4,9 +4,18 @@ when:
     - manual
 
 steps:
+  - name: decrypt
+    image: docker.io/library/alpine:latest
+    commands:
+      - apk add age
+      - echo $AGE_ID > id.age
+      - age -i id.age -d restic.env.age > restic.env
+      - chmod +x restic.env
+
   - name: prune
     image: docker.io/library/alpine:latest
     commands:
       - apk add restic
+      - source restic.env
       - restic prune
 
