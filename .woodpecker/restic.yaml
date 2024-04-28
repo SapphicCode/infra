@@ -1,8 +1,3 @@
-when:
-  event:
-    - cron
-    - manual
-
 steps:
   - name: decrypt
     image: docker.io/library/alpine:latest
@@ -14,7 +9,25 @@ steps:
       - age -i id.age -d restic.env.age > restic.env
       - chmod +x restic.env
 
+  - name: unlock
+    when:
+      - event: push
+      - event: manual
+      - event: cron
+        cron: daily
+      - event: cron
+        cron: weekly
+    image: docker.io/library/alpine:latest
+    commands:
+      - apk add restic
+      - source restic.env
+      - restic unlock
+
   - name: prune
+    when:
+      - event: manual
+      - event: cron
+        cron: weekly
     image: docker.io/library/alpine:latest
     commands:
       - apk add restic
