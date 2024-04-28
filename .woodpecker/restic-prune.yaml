@@ -6,9 +6,11 @@ when:
 steps:
   - name: decrypt
     image: docker.io/library/alpine:latest
+    secrets:
+      - AGE_ID
     commands:
       - apk add age
-      - echo $AGE_ID > id.age
+      - echo $$AGE_ID > id.age
       - age -i id.age -d restic.env.age > restic.env
       - chmod +x restic.env
 
