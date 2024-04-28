@@ -1,3 +1,8 @@
+when:
+  event:
+    - manual
+    - cron
+
 steps:
   - name: decrypt
     image: docker.io/library/alpine:latest
@@ -11,7 +16,6 @@ steps:
 
   - name: unlock
     when:
-      - event: push
       - event: manual
       - event: cron
         cron: daily
@@ -24,6 +28,19 @@ steps:
       - apk add restic
       - source restic.env
       - restic unlock
+
+  - name: forget
+    when:
+      - event: manual
+      - event: cron
+        cron: weekly
+    image: docker.io/library/alpine:latest
+    volumes:
+      - restic_cache:/root/.cache/restic
+    commands:
+      - apk add restic
+      - source restic.env
+      - restic forget --keep-hourly 72 --keep-daily 30 --keep-weekly 52 --keep-monthly unlimited
 
   - name: prune
     when:
