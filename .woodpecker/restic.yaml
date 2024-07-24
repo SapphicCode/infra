@@ -40,7 +40,7 @@ steps:
     commands:
       - apk add restic
       - source restic.env
-      - restic forget --keep-hourly 72 --keep-daily 30 --keep-weekly 52 --keep-monthly unlimited
+      - restic forget --keep-hourly 72 --keep-daily 30 --keep-weekly 52 --keep-monthly unlimited --keep-tag keep
 
   - name: prune
     when:
