@@ -1,0 +1,43 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: traefik
+  namespace: kube-system
+spec:
+  valuesContent: |
+    persistence:
+      enabled: true
+
+    certResolvers:
+      cloudflare:
+        email: calm.wheel3046@cloak.sapphiccode.net
+        dnsChallenge:
+          provider: cloudflare
+        keyType: EC256
+        storage: /data/cloudflare.json
+
+    env:
+      - name: CF_DNS_API_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: cloudflare
+            key: token
+
+    ports:
+      web:
+        redirectTo:
+          port: websecure
+          priority: 10
+      websecure:
+        tls:
+          certResolver: cloudflare
+          domains:
+            - main: '*.blahaj.sapphiccode.net'
+
+    providers:
+      kubernetesCRD:
+        allowEmptyServices: true
+
+    logs:
+      access:
+        enabled: true

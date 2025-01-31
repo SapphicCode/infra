@@ -1,0 +1,6 @@
+vault:
+  fullnameOverride: vault
+  ui:
+    enabled: true
+postgresql:
+  fullnameOverride: postgresql
