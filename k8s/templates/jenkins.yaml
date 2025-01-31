@@ -99,16 +99,11 @@ spec:
         - protocol: TCP
           port: 50000
 
-    # allow DNS
+    # allow DNS & accessing self (Traefik)
     - to:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: kube-system
-      ports:
-        - protocol: TCP
-          port: 53
-        - protocol: UDP
-          port: 53
 
     # allow internet access
     - to:
