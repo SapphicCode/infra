@@ -71,6 +71,9 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: forgejo
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
     spec:
       containers:
         - name: forgejo

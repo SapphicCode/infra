@@ -132,6 +132,9 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: jenkins
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
     spec:
       serviceAccountName: jenkins
       containers:
@@ -184,7 +187,7 @@ spec:
 
 ---
 
-apiVersion: traefik.containo.us/v1alpha1
+apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: jenkins

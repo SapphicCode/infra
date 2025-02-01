@@ -4,3 +4,8 @@ vault:
     enabled: true
 postgresql:
   fullnameOverride: postgresql
+victoria-metrics-single:
+  fullnameOverride: vmetrics
+  server:
+    scrape:
+      enabled: true

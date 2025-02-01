@@ -30,3 +30,6 @@ dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
     version: "16.4.3"
+  - name: victoria-metrics-single
+    repository: https://victoriametrics.github.io/helm-charts
+    version: "0.13.7"
