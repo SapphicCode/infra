@@ -41,6 +41,12 @@ spec:
     logs:
       access:
         enabled: true
+        fields:
+          defaultMode: keep
+          headers:
+            defaultMode: drop
+            names:
+              User-Agent: keep
 
     service:
       spec:
