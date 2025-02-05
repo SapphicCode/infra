@@ -1,0 +1,15 @@
+victoria-metrics-single:
+  fullnameOverride: vmetrics
+  server:
+    scrape:
+      enabled: true
+
+victoria-logs-single:
+  fullnameOverride: vlogs
+
+vector:
+  role: Agent
+  service:
+    enabled: false
+  serviceHeadless:
+    enabled: false
