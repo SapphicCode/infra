@@ -9,8 +9,6 @@ kustomize:
 
 deploy:
     kubectx blahaj
-    kubens phoenix
 
-    helm upgrade k8s k8s/main
-
-    kubectl kustomize --enable-helm k8s/system | kubectl apply -f -
+    helm upgrade -n phoenix k8s k8s/main
+    helm upgrade -n system-metrics system-metrics k8s/system-metrics

@@ -41,6 +41,7 @@ spec:
     logs:
       access:
         enabled: true
+        format: json
         fields:
           defaultMode: keep
           headers:
