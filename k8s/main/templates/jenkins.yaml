@@ -23,6 +23,17 @@ spec:
       port: 50000
       targetPort: 50000
 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins
+spec:
+  type: ExternalName
+  externalName: jenkins.phoenix-jenkins.svc.cluster.local
+
 ---
 
 apiVersion: v1
@@ -187,21 +198,26 @@ spec:
 
 ---
 
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: jenkins
-  namespace: phoenix-jenkins
+  name: jenkins-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`jci.sapphiccode.net`)
-      kind: Rule
-      services:
-        - name: jenkins
-          port: 80
+  ingressClassName: nginx
   tls:
-    certResolver: cloudflare
-    domains:
-      - main: "*.sapphiccode.net"
+    - hosts:
+        - jci.sapphiccode.net
+      secretName: star-sapphiccode-net-tls
+  rules:
+    - host: jci.sapphiccode.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkins
+                port:
+                  number: 80
