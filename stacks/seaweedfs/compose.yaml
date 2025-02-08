@@ -1,0 +1,27 @@
+services:
+  master:
+    image: docker.io/chrislusf/seaweedfs:latest
+    command: master -volumeSizeLimitMB=1024
+    volumes:
+      - master:/data
+    ports:
+      - "127.0.0.1:9333:9333"
+
+  filer:
+    image: docker.io/chrislusf/seaweedfs:latest
+    command: filer -master=master:9333 -defaultStoreDir=/data -webdav -encryptVolumeData
+    volumes:
+      - filer:/data
+    ports:
+      - "127.0.0.1:8888:8888"
+      - "127.0.0.1:7333:7333"
+
+  volume1:
+    image: docker.io/chrislusf/seaweedfs:latest
+    command: volume -mserver=master:9333 -dir /data -max 1000
+    volumes:
+      - /Volumes/SeaweedFS:/data
+
+volumes:
+  master:
+  filer:
