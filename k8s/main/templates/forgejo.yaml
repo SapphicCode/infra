@@ -93,6 +93,12 @@ spec:
                 secretKeyRef:
                   name: forgejo-env
                   key: db-password
+          resources:
+            limits:
+              memory: 1024Mi
+            requests:
+              cpu: 1000m
+              memory: 1024Mi
 
         - name: anubis
           image: ghcr.io/xe/x/anubis:latest
@@ -135,7 +141,6 @@ spec:
             claimName: forgejo-data
 
 ---
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

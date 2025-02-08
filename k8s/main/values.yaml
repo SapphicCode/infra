@@ -4,3 +4,5 @@ vault:
     enabled: true
 postgresql:
   fullnameOverride: postgresql
+  primary:
+    resourcesPreset: small
