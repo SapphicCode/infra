@@ -6,3 +6,7 @@ postgresql:
   fullnameOverride: postgresql
   primary:
     resourcesPreset: small
+
+zot:
+  image: ghcr.io/project-zot/zot
+  tag: v2.1.2
