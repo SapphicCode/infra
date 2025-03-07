@@ -1,0 +1,92 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mathesar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: mathesar
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: mathesar
+    spec:
+      containers:
+        - name: mathesar
+          image: "{{ .Values.mathesar.image }}:{{ .Values.mathesar.tag }}"
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: mathesar-media
+              mountPath: /code/media
+          env:
+            - name: ALLOWED_HOSTS
+              value: data.sapphiccode.net
+            - name: POSTGRES_HOST
+              value: postgresql
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_DB
+              value: mathesar
+            - name: POSTGRES_USER
+              value: mathesar
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mathesar-env
+                  key: db-password
+      volumes:
+        - name: mathesar-media
+          persistentVolumeClaim:
+            claimName: mathesar-media
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mathesar-media
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mathesar
+spec:
+  selector:
+    app.kubernetes.io/name: mathesar
+  ports:
+    - port: 80
+      targetPort: 8000
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mathesar
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - data.sapphiccode.net
+      secretName: star-sapphiccode-net-tls
+  rules:
+    - host: data.sapphiccode.net
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: mathesar
+                port:
+                  number: 80

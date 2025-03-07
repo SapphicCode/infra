@@ -10,3 +10,7 @@ postgresql:
 zot:
   image: ghcr.io/project-zot/zot
   tag: v2.1.2
+
+mathesar:
+  image: registry-1.cc/mathesar/mathesar
+  tag: '0.2.1'
