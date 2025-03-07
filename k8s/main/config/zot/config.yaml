@@ -15,12 +15,12 @@ storage:
       - repositories:
           - "**"
         keepTags:
-          - patterns:
-              - "latest"
-              - "stable"
-              - "v?\\d+"
-              - "v?\\d+\\.\\d+"
-            pushedWithin: 24h
+          # - patterns:
+          #     - "latest"
+          #     - "stable"
+          #     - "v?\\d+"
+          #     - "v?\\d+\\.\\d+"
+          #   pushedWithin: 24h
           - pulledWithin: 720h
 
 extensions:
