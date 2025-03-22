@@ -156,7 +156,7 @@ spec:
               memory: 1024Mi
 
         - name: anubis
-          image: ghcr.io/xe/x/anubis:latest
+          image: ghcr.io/techarohq/anubis:latest
           imagePullPolicy: Always
           env:
             - name: "BIND"
