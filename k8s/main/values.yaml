@@ -14,3 +14,18 @@ zot:
 mathesar:
   image: registry-1.cc/mathesar/mathesar
   tag: '0.2.1'
+
+minecraft:
+  - name: survival
+    port: 25564
+    bedrockPort: 19131
+    image: ghcr.io/sapphiccode/minecraft:quilt-1.21.4
+    javaArgs: "-Xmx2G"
+    serverProperties: |
+      enable-rcon=true
+      rcon.password=kubernetes
+      white-list=true
+      level-seed=2660414652662796736
+      view-distance=16
+      difficulty=normal
+      motd=\u00A7dSC\u00A7bSMP\u00A7r
