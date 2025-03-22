@@ -14,6 +14,10 @@ kubectx:
 deploy-nginx: kubectx
     helm upgrade --install --create-namespace -n system-nginx system-nginx k8s/system-nginx
 
+deploy-ts *ARGS:
+    helm repo add tailscale https://pkgs.tailscale.com/helmcharts
+    helm upgrade --install --create-namespace -n system-tailscale {{ARGS}} tailscale-operator tailscale/tailscale-operator
+
 deploy: kubectx
     kubectl get namespace/system-nginx || just deploy-nginx
     helm upgrade --install --create-namespace -n phoenix k8s k8s/main

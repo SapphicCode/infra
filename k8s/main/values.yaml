@@ -2,10 +2,14 @@ vault:
   fullnameOverride: vault
   ui:
     enabled: true
+
 postgresql:
   fullnameOverride: postgresql
   primary:
     resourcesPreset: small
+    service:
+      annotations:
+        tailscale.com/expose: "true"
 
 zot:
   image: ghcr.io/project-zot/zot

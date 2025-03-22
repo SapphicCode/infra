@@ -1,1 +1,4 @@
 *.env
+
+/k8s/_values/*.yaml
+!/k8s/_values/*.sops.yaml
