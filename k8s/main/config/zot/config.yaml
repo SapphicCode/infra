@@ -35,7 +35,7 @@ extensions:
       onDemand: true
       tlsVerify: true
       content:
-        - prefix: "/{library,apache,jenkins,victoriametrics,mathesar,archlinux}/**"
+        - prefix: "/{library,apache,archlinux,bitnami,jenkins,victoriametrics,mathesar,chrislusf}/**"
           tags:
             regex: ".*"
             semver: false

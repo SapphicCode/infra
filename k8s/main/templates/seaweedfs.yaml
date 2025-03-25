@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: seaweedfs-config
+data:
+{{ (.Files.Glob "config/seaweedfs/*").AsConfig | indent 2 }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: seaweedfs-master
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: seaweedfs-master
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: seaweedfs-master
+      app.kubernetes.io/part-of: seaweedfs
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: seaweedfs-master
+        app.kubernetes.io/part-of: seaweedfs
+    spec:
+      containers:
+        - name: seaweedfs-master
+          image: "registry-1.cc/chrislusf/seaweedfs:latest"
+          ports:
+            - containerPort: 9333
+              name: http
+            - containerPort: 19333
+              name: grpc
+          volumeMounts:
+            - name: seaweedfs-master
+              mountPath: /data
+            - name: seaweedfs-config
+              mountPath: /etc/seaweedfs
+          args:
+            - master
+            - -mdir=/data
+            - -volumeSizeLimitMB=1024
+            - -ip=phoenix-seaweedfs-master.atlas-ide.ts.net
+            - -ip.bind=0.0.0.0
+      volumes:
+        - name: seaweedfs-master
+          persistentVolumeClaim:
+            claimName: seaweedfs-master
+        - name: seaweedfs-config
+          configMap:
+            name: seaweedfs-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: seaweedfs-master
+  annotations:
+    tailscale.com/expose: "true"
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: seaweedfs-master
+    app.kubernetes.io/part-of: seaweedfs
+  ports:
+    - name: http
+      port: 9333
+      targetPort: 9333
+    - name: grpc
+      port: 19333
+      targetPort: 19333
