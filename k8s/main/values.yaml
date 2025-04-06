@@ -39,8 +39,11 @@ minecraft:
         ferrite-core
         krypton
         c2me-fabric:beta
+        alternate-current
+        vmp-fabric:alpha
         no-chat-reports
         distanthorizons:beta
-        vmp-fabric:alpha
         carpet-tis-addition
-
+        geyser:beta
+        floodgate
+        plasmo-voice:beta
