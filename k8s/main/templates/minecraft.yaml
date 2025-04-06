@@ -41,11 +41,13 @@ spec:
               name: bedrock-udp
             - containerPort: 25575
               name: rcon
+          {{- if .environment }}
           env:
-            - name: EULA
-              value: "true"
-            - name: JAVA_ARGS_EXTRA
-              value: {{ .javaArgs | default "-Xmx1G" | quote }}
+            {{- range $k, $v := .environment }}
+            - name: {{ $k | upper | replace "-" "_" | quote}}
+              value: {{ $v | quote }}
+            {{- end }}
+          {{- end }}
           volumeMounts:
             - name: minecraft-data
               mountPath: /data
