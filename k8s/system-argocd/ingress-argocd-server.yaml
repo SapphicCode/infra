@@ -21,3 +21,22 @@ spec:
                 name: argocd-server
                 port:
                   name: http
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`argocd.sapphicco.de`)
+      services:
+        - name: argocd-server
+          port: http
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: '*.sapphicco.de'
