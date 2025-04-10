@@ -90,3 +90,22 @@ spec:
                 name: mathesar
                 port:
                   number: 80
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mathesar
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`data.sapphiccode.net`)
+      services:
+        - name: mathesar
+          port: 80
+  tls:
+    certResolver: cloudflare
+    domains:
+      - main: '*.sapphiccode.net'

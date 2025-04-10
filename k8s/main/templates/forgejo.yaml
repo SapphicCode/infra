@@ -141,26 +141,20 @@ spec:
             claimName: forgejo-data
 
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
 metadata:
-  name: forgejo-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  name: forgejo
 spec:
-  ingressClassName: nginx
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`git.sapphiccode.net`)
+      services:
+        - name: forgejo
+          port: 80
   tls:
-    - hosts:
-        - git.sapphiccode.net
-      secretName: star-sapphiccode-net-tls
-  rules:
-    - host: git.sapphiccode.net
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: forgejo
-                port:
-                  name: http
+    certResolver: cloudflare
+    domains:
+      - main: "*.sapphiccode.net"

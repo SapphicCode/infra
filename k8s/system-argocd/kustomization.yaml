@@ -5,10 +5,16 @@ namespace: system-argocd
 
 resources:
   - ./namespace.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.0-rc3/manifests/install.yaml
   - ./ingress-argocd-server.yaml
 
 patches:
+  - patch: |-
+      - op: replace
+        path: /subjects/0/namespace
+        value: system-argocd
+    target:
+      kind: ClusterRoleBinding
   - target:
       group: ""
       version: v1
