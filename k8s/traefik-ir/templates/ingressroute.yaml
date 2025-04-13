@@ -1,0 +1,29 @@
+{{ if .Values.service.tlsInsecure }}
+apiVersion: traefik.io/v1alpha1
+kind: ServersTransport
+metadata:
+  name: {{ .Release.Name }}-insecure
+spec:
+  insecureSkipVerify: true
+{{ end }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`{{ .Values.host }}`)
+      services:
+        - name: {{ .Values.service.name }}
+          port: {{ .Values.service.port }}
+          {{- if .Values.service.tlsInsecure }}
+          serversTransport: {{ .Release.Name }}-insecure
+          {{- end }}
+  tls:
+    certResolver: {{ .Values.tls.certResolver }}
+    domains:
+      - main: {{ .Values.tls.host | default .Values.host | quote }}
