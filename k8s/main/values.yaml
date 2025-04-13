@@ -58,6 +58,7 @@ minecraft:
       MODS: |-
         https://github.com/gnembon/fabric-carpet/releases/download/1.4.169/fabric-carpet-1.21.5-1.4.169+v250325.jar
         https://github.com/gnembon/carpet-extra/releases/download/1.4.169/carpet-extra-1.21.5-1.4.169.jar
+        https://github.com/sakura-ryoko/servux/releases/download/1.21.5-0.6.0-sakura.6/servux-fabric-1.21.5-0.6.0-sakura.6.jar
       MODRINTH_PROJECTS: |-
         fabric-api
         lithium
@@ -75,7 +76,7 @@ minecraft:
       MODE: 'creative'
       LEVEL_TYPE: 'minecraft:flat'
       GENERATE_STRUCTURES: 'false'
-      GENERATOR_SETTINGS: '{"biome": "minecraft:plains", "features": false, "lakes": false, "structure_overrides": [], "layers": [{"block": "minecraft:bedrock", "height": 1}, {"block": "minecraft:light_gray_concrete", "height": 112}, {"block": "minecraft:air", "height": 20}, {"block": "minecraft:black_stained_glass", "height": 1}]}'
+      GENERATOR_SETTINGS: '{"biome": "minecraft:plains", "features": false, "lakes": false, "structure_overrides": [], "layers": [{"block": "minecraft:bedrock", "height": 1}, {"block": "minecraft:light_gray_concrete", "height": 112}, {"block": "minecraft:light", "height": 1}, {"block": "minecraft:air", "height": 19}, {"block": "minecraft:black_stained_glass", "height": 1}]}'
 
       RCON_CMDS_STARTUP: |-
         whitelist on

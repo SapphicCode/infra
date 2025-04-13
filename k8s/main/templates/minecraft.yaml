@@ -31,7 +31,7 @@ spec:
       {{ end }}
       containers:
         - name: minecraft
-          image: {{ .image | default "ghcr.io/sapphiccode/minecraft:latest-release" | quote }}
+          image: {{ .image | default "registry-1.cc/itzg/minecraft-server:latest" | quote }}
           imagePullPolicy: Always
           ports:
             - containerPort: 25565
