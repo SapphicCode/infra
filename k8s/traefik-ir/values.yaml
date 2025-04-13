@@ -1,0 +1,10 @@
+service:
+  name: acme-server
+  port: http
+  tlsInsecure: false
+
+host: acme.example.com
+
+tls:
+  host: null
+  certResolver: cloudflare
