@@ -28,7 +28,6 @@ minecraft:
       VERSION: '1.21.5'
       TYPE: QUILT
       MAX_MEMORY: 4G
-      REMOVE_OLD_MODS: 'TRUE'
       MODS: |-
         https://github.com/gnembon/fabric-carpet/releases/download/1.4.169/fabric-carpet-1.21.5-1.4.169+v250325.jar
         https://github.com/gnembon/carpet-extra/releases/download/1.4.169/carpet-extra-1.21.5-1.4.169.jar
