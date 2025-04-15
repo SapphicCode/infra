@@ -15,8 +15,8 @@ spec:
       labels:
         app.kubernetes.io/name: minecraft-{{ .name }}
     spec:
-      {{ if .serverProperties }}
       initContainers:
+        {{- if .serverProperties }}
         - name: setup-server-properties
           image: registry-1.cc/library/alpine:latest
           command:
@@ -28,7 +28,22 @@ spec:
           volumeMounts:
             - name: minecraft-data
               mountPath: /data
-      {{ end }}
+        {{- end }}
+        {{- if .voiceHost }}
+        - name: setup-voice-chat
+          image: registry-1.cc/library/ubuntu:latest
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /data/config/voicechat
+              touch /data/config/voicechat/voicechat-server.properties
+              sed -i -e 's/^voice_host=.*/voice_host={{ .voiceHost }}/; t; 1ivoice_host={{ .voiceHost }}' /data/config/voicechat/voicechat-server.properties
+              chown 1000:1000 -R /data/config
+          volumeMounts:
+            - name: minecraft-data
+              mountPath: /data
+        {{- end }}
       containers:
         - name: minecraft
           image: {{ .image | default "registry-1.cc/itzg/minecraft-server:latest" | quote }}
@@ -39,6 +54,9 @@ spec:
             - containerPort: 19132
               protocol: UDP
               name: bedrock-udp
+            - containerPort: 24454
+              protocol: UDP
+              name: voice
             - containerPort: 25575
               name: rcon
           {{- if .environment }}
@@ -89,6 +107,12 @@ spec:
       port: {{ .bedrockPort }}
       targetPort: bedrock-udp
       name: bedrock-udp
+    {{- end }}
+    {{- if .voiceHost }}
+    - protocol: UDP
+      port: {{ .voiceHost | splitList ":" | last | int }}
+      targetPort: voice
+      name: voice
     {{- end }}
 
 {{ end }}

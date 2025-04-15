@@ -23,6 +23,7 @@ minecraft:
   - name: survival
     port: 25564
     bedrockPort: 19131
+    voiceHost: blahaj.sapphiccode.net:24453
     environment:
       EULA: 'TRUE'
       VERSION: '1.21.5'
@@ -44,7 +45,7 @@ minecraft:
         carpet-tis-addition
         geyser:beta
         floodgate
-        plasmo-voice:beta
+        simple-voice-chat
         itemswapper
 
   - name: redstone
@@ -66,7 +67,7 @@ minecraft:
         alternate-current
         carpet-tis-addition
         worldedit:beta
-        plasmo-voice:beta
+        simple-voice-chat
         itemswapper
 
       MOTD: "SC's Redstone Server"
