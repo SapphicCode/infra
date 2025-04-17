@@ -1,4 +1,4 @@
-image: registry-1.cc/library/hello-world:latest
+image: registry-1.cc/library/nginx:latest
 imagePullPolicy: IfNotPresent
 
 env: {}
@@ -6,7 +6,7 @@ persistentVolumes: []
 
 ports:
   - name: http
-    port: 8080
+    port: 80
     protocol: TCP
 
     anubis:
