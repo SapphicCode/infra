@@ -1,7 +1,9 @@
 image: registry-1.cc/library/nginx:latest
 imagePullPolicy: IfNotPresent
 
-env: {}
+env:
+  - name: "ENV"
+    value: "production"
 persistentVolumes: []
 
 ports:

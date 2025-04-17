@@ -19,10 +19,7 @@ spec:
 
           {{- if .Values.env }}
           env:
-            {{- range $key, $value := .Values.env }}
-            - name: {{ $key | quote }}
-              value: {{ $value | toString | quote }}
-            {{- end }}
+{{ .Values.env | toYaml | indent 12 }}
           {{- end }}
 
           {{- if .Values.ports}}
