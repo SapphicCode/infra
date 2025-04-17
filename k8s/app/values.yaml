@@ -11,7 +11,7 @@ ports:
 
     anubis:
       enabled: true
-      image: ghcr.io/techaro/anubis:latest
+      image: ghcr.io/techarohq/anubis:latest
       imagePullPolicy: Always
       portOffset: 1
 

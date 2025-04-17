@@ -45,7 +45,7 @@ spec:
         {{- range $port := .Values.ports }}
         {{- if $port.anubis.enabled }}
         - name: anubis-{{ $port.port }}
-          image: {{ $port.anubis.image | default "ghcr.io/techaro/anubis:latest" | quote }}
+          image: {{ $port.anubis.image | default "ghcr.io/techarohq/anubis:latest" | quote }}
           imagePullPolicy: {{ $port.anubis.imagePullPolicy | default "Always" }}
           env:
             - name: "BIND"
