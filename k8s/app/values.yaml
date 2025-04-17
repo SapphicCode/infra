@@ -1,0 +1,22 @@
+image: registry-1.cc/library/hello-world:latest
+imagePullPolicy: IfNotPresent
+
+env: {}
+persistentVolumes: []
+
+ports:
+  - name: http
+    port: 8080
+    protocol: TCP
+
+    anubis:
+      enabled: true
+      image: ghcr.io/techaro/anubis:latest
+      imagePullPolicy: Always
+      portOffset: 1
+
+service:
+  type: ClusterIP
+
+ingressroute:
+  enabled: false

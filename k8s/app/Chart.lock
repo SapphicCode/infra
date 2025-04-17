@@ -1,0 +1,6 @@
+dependencies:
+- name: traefik-ir
+  repository: file://../traefik-ir
+  version: 0.1.0
+digest: sha256:73d1402727dfff65078e918a3e21637d5445cac1ddefd1ccf7c6ebf31099c641
+generated: "2025-04-17T13:15:00.898542+02:00"

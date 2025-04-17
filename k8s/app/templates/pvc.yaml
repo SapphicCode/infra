@@ -1,0 +1,15 @@
+{{- range $volume := .Values.persistentVolumes }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ list $.Release.Name ($volume | trimPrefix "/" | replace "/" "-") | join "-" }}
+  labels:
+    app.kubernetes.io/name: {{ $.Release.Name }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+{{- end }}

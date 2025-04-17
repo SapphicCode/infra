@@ -1,0 +1,16 @@
+{{- range $port := .Values.ports }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: $.Release.Name
+spec:
+  selector:
+    app.kubernetes.io/name: {{ $.Release.Name }}
+  type: {{ $.Values.service.type | default "ClusterIP" }}
+  ports:
+    - name: {{ $port.name }}
+      port: {{ $port.port }}
+      targetPort: {{ $port.name }}
+      protocol: {{ $port.protocol | default "TCP" }}
+{{- end }}

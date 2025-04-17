@@ -18,3 +18,6 @@ deploy: kubectx
     helm upgrade --install --create-namespace -n system-traefik --values k8s/system-traefik.yaml traefik traefik/traefik
     helm upgrade --install --create-namespace -n phoenix k8s k8s/main
     helm upgrade --install --create-namespace -n system-metrics system-metrics k8s/system-metrics
+
+lock:
+    helm dependency update k8s/app
