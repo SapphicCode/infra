@@ -58,11 +58,10 @@ data:
 ---
 # StatefulSet
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: forgejo
 spec:
-  serviceName: forgejo
   replicas: 1
   selector:
     matchLabels:
@@ -77,7 +76,7 @@ spec:
     spec:
       containers:
         - name: forgejo
-          image: codeberg.org/forgejo/forgejo:10-rootless
+          image: code.forgejo.org/forgejo/forgejo:11-rootless
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
