@@ -5,8 +5,9 @@ namespace: system-argocd
 
 resources:
   - ./namespace.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.0-rc3/manifests/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.6/manifests/install.yaml
   - ./ingress-argocd-server.yaml
+  - ./ss-openbao-oidc.yaml
 
 patches:
   - patch: |-
@@ -15,9 +16,22 @@ patches:
         value: system-argocd
     target:
       kind: ClusterRoleBinding
+  - patch: |-
+      - op: add
+        path: /rules/-
+        value: {"apiGroups": ["*"], "resources": ["pods/exec"], "verbs": ["create"]}
+    target:
+      kind: ClusterRole
+      name: argocd-server
   - target:
       group: ""
       version: v1
       kind: ConfigMap
       name: argocd-cmd-params-cm
     path: ./cm-argocd-cmd-params.yaml
+  - target:
+      group: ""
+      version: v1
+      kind: ConfigMap
+      name: argocd-cm
+    path: ./cm-argocd.yaml
