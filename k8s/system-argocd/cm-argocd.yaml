@@ -8,6 +8,6 @@ data:
   exec.enabled: "true"
   oidc.config: |
     name: OpenBao
-    issuer: $openbao-oidc.issuer
-    clientID: $openbao-oidc.clientID
-    clientSecret: $openbao-oidc.clientSecret
+    issuer: $openbao-oidc:issuer
+    clientID: $openbao-oidc:clientID
+    clientSecret: $openbao-oidc:clientSecret
